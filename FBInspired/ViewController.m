@@ -33,7 +33,7 @@
     CGFloat secondMinY;
     
     //Original Position
-    CGFloat originalYPosition;
+    CGFloat originalY1Position;
     
     //getting around the bounces
     BOOL atTheEnd;
@@ -74,21 +74,14 @@
     secondMaxY = self.secondView.frame.origin.y ;
 
     
-    firstMinY = self.firstView.frame.origin.y - self.firstView.bounds.size.height;
-    secondMinY = self.firstView.frame.origin.y - self.firstView.bounds.size.height;
+    firstMinY = 0 - self.firstView.frame.size.height;//self.firstView.frame.origin.y - self.firstView.bounds.size.height;
+    secondMinY = firstMinY;//self.firstView.frame.origin.y - self.firstView.bounds.size.height;
     
 
-    originalYPosition = self.secondView.frame.origin.y - self.secondView.frame.size.height;
-//self.firstView.frame.origin.y;
-    NSLog(@"Serach Bar Y::::=> %f",originalYPosition);
-    NSLog(@"STUPID VIEW Y::::=> %f",self.secondView.frame.origin.y);
-    
-    
-    CGFloat check = self.secondView.frame.origin.y - self.secondView.frame.size.height;
-    CGFloat actualPosition = self.firstView.frame.origin.y;
-    NSLog(@"actual:-> %f  Calculated:-> %f",actualPosition,check);
-    
-    
+    originalY1Position = self.secondView.frame.origin.y - self.secondView.frame.size.height;
+
+    UIEdgeInsets edgeInset  = UIEdgeInsetsMake(self.firstView.bounds.size.height + self.secondView.bounds.size.height, 0, 0, 0);
+    self.scrollView.scrollIndicatorInsets = edgeInset;
     atTheEnd = NO;
     movingToTheEnd = NO;
 }
@@ -128,8 +121,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-//     NSLog(@"Serach Bar Y: %f",self.secondView.frame.origin.y);
-//     NSLog(@"STUPID VIEW Y: %f",self.secondView.frame.origin.y);
+
     if(!atTheEnd)
     {
         if(!movingToTheEnd)
@@ -182,54 +174,23 @@
     CGRect newRect =  CGRectMake(currentRect.origin.x, newY, currentRect.size.width, currentRect.size.height);
     self.secondView.frame = newRect;
 
-    if(newRect.origin.y <= originalYPosition )
+    if(newRect.origin.y <= originalY1Position )
     {
-        NSLog(@"Original Position %f",newRect.origin.y);
         self.firstView.frame = newRect;
+        CGFloat distance = originalY1Position  - firstMinY;
+        CGFloat computedAlpha = (0.8 *(newY  - firstMinY))/ distance;
+        self.firstView.alpha = computedAlpha;
     }
     else
     {
-        CGFloat check = self.secondView.frame.origin.y - self.secondView.frame.size.height;
-        CGFloat actualPosition = self.firstView.frame.origin.y;
-        NSLog(@"actual:-> %f  Calculated:-> %f",actualPosition,check);
         [UIView animateWithDuration:.05 animations:^{
-            self.firstView.frame = CGRectMake(self.firstView.frame.origin.x,originalYPosition, self.firstView.bounds.size.width, self.firstView.bounds.size.height);
+            self.firstView.frame = CGRectMake(self.firstView.frame.origin.x,originalY1Position, self.firstView.bounds.size.width, self.firstView.bounds.size.height);
+            self.firstView.alpha = 1.0;
         }];
     }
 
 }
 
-- (void)resetY1PositionWithScrollView:(UIScrollView *)scrollView
-{
-//    CGFloat difference = (intialOffset - scrollView.contentOffset.y );
-////
-////    difference += self.firstView.bounds.size.height;
-//    NSLog(@"%f",difference);
-//    CGRect currentRect = self.firstView.frame;
-//    CGFloat newY = currentRect.origin.y + difference;
-//    newY = MAX(newY, firstMinY);
-//    newY = MIN(newY, firstMaxY);
-//    
-//    self.firstView.frame = CGRectMake(currentRect.origin.x, newY, currentRect.size.width, currentRect.size.height);
-//    
-//    intialOffset = scrollView.contentOffset.y;
-    
-    CGFloat difference = (intialOffset - scrollView.contentOffset.y );
-    
-    CGRect currentRect = self.secondView.frame;
-    CGFloat newY = currentRect.origin.y + difference;
-    newY = MAX(newY, secondMinY);
-    newY = MIN(newY, secondMaxY);
-    
-    CGRect newRect =  CGRectMake(currentRect.origin.x, newY, currentRect.size.width, currentRect.size.height);
-    self.secondView.frame = newRect;
-    
-    if(newRect.origin.y <= originalYPosition )
-    {
-        NSLog(@"Original Position %f",newRect.origin.y);
-        self.firstView.frame = newRect;
-    }
-}
 
 
 @end
