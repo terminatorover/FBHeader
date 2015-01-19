@@ -16,6 +16,16 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+    
+    #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
+    {
+        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0,320, 20)];
+        view.backgroundColor= [UIColor colorWithRed:55/255.0f green:119/255.0f blue:198/255.0f alpha:1.0];
+        [self.window.rootViewController.view addSubview:view];
+    }
     // Override point for customization after application launch.
     return YES;
 }

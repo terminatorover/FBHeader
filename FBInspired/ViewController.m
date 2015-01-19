@@ -63,6 +63,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+   
     [super viewDidAppear:animated];
     [self settingYPositionRanges];
 }
@@ -178,7 +179,7 @@
     {
         self.firstView.frame = newRect;
         CGFloat distance = originalY1Position  - firstMinY;
-        CGFloat computedAlpha = (0.8 *(newY  - firstMinY))/ distance;
+        CGFloat computedAlpha = (1.0 *(newY  - firstMinY))/ distance;
         self.firstView.alpha = computedAlpha;
         self.secondView.alpha  = (0.2)*computedAlpha;
     }

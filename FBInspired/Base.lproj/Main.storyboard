@@ -109,6 +109,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="firstView" destination="uMh-O7-a0M" id="zG5-eh-6qD"/>
                         <outlet property="scrollView" destination="mhh-PP-fHL" id="xkY-EZ-m5g"/>
