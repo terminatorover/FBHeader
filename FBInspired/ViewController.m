@@ -180,12 +180,14 @@
         CGFloat distance = originalY1Position  - firstMinY;
         CGFloat computedAlpha = (0.8 *(newY  - firstMinY))/ distance;
         self.firstView.alpha = computedAlpha;
+        self.secondView.alpha  = (0.2)*computedAlpha;
     }
     else
     {
         [UIView animateWithDuration:.05 animations:^{
             self.firstView.frame = CGRectMake(self.firstView.frame.origin.x,originalY1Position, self.firstView.bounds.size.width, self.firstView.bounds.size.height);
             self.firstView.alpha = 1.0;
+            self.secondView.alpha = 1.0;
         }];
     }
 
