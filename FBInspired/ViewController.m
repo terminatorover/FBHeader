@@ -36,8 +36,7 @@
     BOOL atTheEnd;
     BOOL movingToTheEnd;
     
-    //DEBUGGING
-    NSInteger count;
+
     
     
 }
@@ -56,9 +55,7 @@
         subview.backgroundColor = [UIColor redColor];
         [self.scrollView addSubview:subview];
     }
-    
-    //TODO:REMOVE
-    count = 0 ;
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -93,40 +90,32 @@
               targetContentOffset:(inout CGPoint *)targetContentOffset
 {
     
-    NSLog(@"DRAG ENDED WITH EXPECTED OFFSET :%f",targetContentOffset->y);
     if(targetContentOffset->y == 0 || targetContentOffset->y == (scrollView.contentSize.height - scrollView.bounds.size.height ) )
     {
-        NSLog(@"AT THE END , %d",count);
         atTheEnd = YES;
         movingToTheEnd = NO;
     }
     else
     {
-        NSLog(@"NOT AT THE END , %d",count);
         atTheEnd = NO;
         movingToTheEnd = NO;
     }
     
     if((scrollView.contentOffset.y > 0) && (scrollView.contentOffset.y  < (scrollView.contentSize.height - scrollView.bounds.size.height )))
     {
-        NSLog(@"NOT AT THE END, %d",count);
         atTheEnd = NO;
         movingToTheEnd = YES;
     }
     
-    count += 1;
-
-
    
     intialOffset = scrollView.contentOffset.y;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-//    NSLog(@"Scrolling");
+
     if(!atTheEnd)
     {
-        NSLog(@"Computing");
         if(!movingToTheEnd)
         {
             CGFloat difference = (intialOffset - scrollView.contentOffset.y );
@@ -161,25 +150,12 @@
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
 {
-//    NSLog(@"Will Descellreate");
-//
-//    CGFloat offset = scrollView.contentOffset.y;
-//    if(offset < 0 || offset > (scrollView.contentSize.height - scrollView.bounds.size.height ) )
-//    {
-//        atTheEnd = YES;
-//    }
-//    else
-//    {
-//        NSLog(@"SHOULD NOT SEE THIS");
-//        atTheEnd = NO;
-//    }
+
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    NSLog(@"Ended Decelerating");
     intialOffset = scrollView.contentOffset.y;
-//    atTheEnd = NO;
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView
