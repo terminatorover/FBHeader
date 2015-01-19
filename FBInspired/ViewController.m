@@ -39,8 +39,12 @@
     BOOL atTheEnd;
     BOOL movingToTheEnd;
     
-
+    //Original Frames
+    CGRect firstOriginalFrame;
+    CGRect secondOriginalFrame;
     
+    //
+    CGRect finalFrame ;
     
 }
 - (void)viewDidLoad {
@@ -66,6 +70,7 @@
    
     [super viewDidAppear:animated];
     [self settingYPositionRanges];
+    
 }
 
 
@@ -83,8 +88,18 @@
 
     UIEdgeInsets edgeInset  = UIEdgeInsetsMake(self.firstView.bounds.size.height + self.secondView.bounds.size.height, 0, 0, 0);
     self.scrollView.scrollIndicatorInsets = edgeInset;
+    //------>
     atTheEnd = NO;
     movingToTheEnd = NO;
+    
+    //------>
+    firstOriginalFrame = self.firstView.frame;
+    secondOriginalFrame = self.secondView.frame;
+    
+    //--->
+    finalFrame = CGRectMake(0, firstMinY,self.firstView.bounds.size.width, self.firstView.bounds.size.height);
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -154,12 +169,19 @@
 {
     intialOffset = scrollView.contentOffset.y;
     atTheEnd = NO;
+    
+    //---->
+    [self animateToCorrectPosition:scrollView];
+    
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView
                   willDecelerate:(BOOL)decelerate
 {
-
+    
+    //---->
+    [self animateToCorrectPosition:scrollView];
+    
 }
 
 - (void)resetYPositionWithScrollView:(UIScrollView *)scrollView
@@ -194,6 +216,33 @@
 
 }
 
+
+- (void)animateToCorrectPosition:(UIScrollView *)scrollView
+{
+    CGFloat difference = (intialOffset - scrollView.contentOffset.y );
+    
+    CGRect currentRect = self.secondView.frame;
+    CGFloat newY = currentRect.origin.y + difference;
+    newY = MAX(newY, secondMinY);
+    newY = MIN(newY, secondMaxY);
+    CGRect newRect =  CGRectMake(currentRect.origin.x, newY, currentRect.size.width, currentRect.size.height);
+
+    if(newRect.origin.y > originalY1Position)
+    {
+        [UIView animateWithDuration:.2 animations:^{
+            self.firstView.frame = firstOriginalFrame;
+            self.secondView.frame = secondOriginalFrame;
+            self.firstView.alpha = 1.0;
+        }];
+    }else
+    {
+        [UIView animateWithDuration:.2 animations:^{
+            self.firstView.frame = finalFrame;
+            self.secondView.frame = finalFrame;
+            self.firstView.alpha = 0.0;
+        }];
+    }
+}
 
 
 @end
