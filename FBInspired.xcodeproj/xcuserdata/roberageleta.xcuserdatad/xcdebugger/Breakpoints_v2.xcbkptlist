@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FBInspired/ViewController.m"
-            timestampString = "443336768.364728"
+            timestampString = "443376796.224466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "-scrollViewDidEndDragging:willDecelerate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FBInspired/ViewController.m"
-            timestampString = "443336768.364728"
+            timestampString = "443376796.224466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "-resetYPosition:"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "-resetYPositionWithScrollView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FBInspired/ViewController.m"
-            timestampString = "443336768.364728"
+            timestampString = "443376240.332289"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "-scrollViewDidScroll:"
             landmarkType = "5">
          </BreakpointContent>
@@ -77,11 +77,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FBInspired/ViewController.m"
-            timestampString = "443336768.364728"
+            timestampString = "443374247.487201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "-settingYPositionRanges"
             landmarkType = "5">
          </BreakpointContent>
@@ -93,11 +93,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FBInspired/ViewController.m"
-            timestampString = "443336768.364728"
+            timestampString = "443374247.487201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "-settingYPositionRanges"
             landmarkType = "5">
          </BreakpointContent>
@@ -109,11 +109,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FBInspired/ViewController.m"
-            timestampString = "443336768.364728"
+            timestampString = "443376240.332289"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "-scrollViewWillEndDragging:withVelocity:targetContentOffset:"
             landmarkType = "5">
          </BreakpointContent>
@@ -125,12 +125,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FBInspired/ViewController.m"
-            timestampString = "443336768.364728"
+            timestampString = "443376796.224466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
             landmarkName = "-scrollViewDidScroll:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FBInspired/ViewController.m"
+            timestampString = "443376796.224466"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "-resetYPositionWithScrollView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

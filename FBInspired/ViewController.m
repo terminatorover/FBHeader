@@ -32,6 +32,9 @@
     CGFloat secondMaxY;
     CGFloat secondMinY;
     
+    //Original Position
+    CGFloat originalYPosition;
+    
     //getting around the bounces
     BOOL atTheEnd;
     BOOL movingToTheEnd;
@@ -74,6 +77,18 @@
     firstMinY = self.firstView.frame.origin.y - self.firstView.bounds.size.height;
     secondMinY = self.firstView.frame.origin.y - self.firstView.bounds.size.height;
     
+
+    originalYPosition = self.secondView.frame.origin.y - self.secondView.frame.size.height;
+//self.firstView.frame.origin.y;
+    NSLog(@"Serach Bar Y::::=> %f",originalYPosition);
+    NSLog(@"STUPID VIEW Y::::=> %f",self.secondView.frame.origin.y);
+    
+    
+    CGFloat check = self.secondView.frame.origin.y - self.secondView.frame.size.height;
+    CGFloat actualPosition = self.firstView.frame.origin.y;
+    NSLog(@"actual:-> %f  Calculated:-> %f",actualPosition,check);
+    
+    
     atTheEnd = NO;
     movingToTheEnd = NO;
 }
@@ -113,34 +128,23 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-
+//     NSLog(@"Serach Bar Y: %f",self.secondView.frame.origin.y);
+//     NSLog(@"STUPID VIEW Y: %f",self.secondView.frame.origin.y);
     if(!atTheEnd)
     {
         if(!movingToTheEnd)
         {
-            CGFloat difference = (intialOffset - scrollView.contentOffset.y );
-            CGRect currentRect = self.secondView.frame;
-            CGFloat newY = currentRect.origin.y + difference;
-            newY = MAX(newY, secondMinY);
-            newY = MIN(newY, secondMaxY);
-            
-            self.secondView.frame = CGRectMake(currentRect.origin.x, newY, currentRect.size.width, currentRect.size.height);
-            
-            intialOffset = scrollView.contentOffset.y;
+            [self resetYPositionWithScrollView:scrollView];
+
+                intialOffset = scrollView.contentOffset.y;
         }
         else
         {
             if((scrollView.contentOffset.y > 0) && (scrollView.contentOffset.y  < (scrollView.contentSize.height - scrollView.bounds.size.height )))
             {
-                CGFloat difference = (intialOffset - scrollView.contentOffset.y );
-                CGRect currentRect = self.secondView.frame;
-                CGFloat newY = currentRect.origin.y + difference;
-                newY = MAX(newY, secondMinY);
-                newY = MIN(newY, secondMaxY);
-                
-                self.secondView.frame = CGRectMake(currentRect.origin.x, newY, currentRect.size.width, currentRect.size.height);
-                
-                intialOffset = scrollView.contentOffset.y;
+
+                [self resetYPositionWithScrollView:scrollView];
+                    intialOffset = scrollView.contentOffset.y;
             }
         }
 
@@ -156,6 +160,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     intialOffset = scrollView.contentOffset.y;
+    atTheEnd = NO;
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView
@@ -164,9 +169,66 @@
 
 }
 
-- (void)resetYPosition:(CGFloat)difference
+- (void)resetYPositionWithScrollView:(UIScrollView *)scrollView
 {
     
+    CGFloat difference = (intialOffset - scrollView.contentOffset.y );
+
+    CGRect currentRect = self.secondView.frame;
+    CGFloat newY = currentRect.origin.y + difference;
+    newY = MAX(newY, secondMinY);
+    newY = MIN(newY, secondMaxY);
+    
+    CGRect newRect =  CGRectMake(currentRect.origin.x, newY, currentRect.size.width, currentRect.size.height);
+    self.secondView.frame = newRect;
+
+    if(newRect.origin.y <= originalYPosition )
+    {
+        NSLog(@"Original Position %f",newRect.origin.y);
+        self.firstView.frame = newRect;
+    }
+    else
+    {
+        CGFloat check = self.secondView.frame.origin.y - self.secondView.frame.size.height;
+        CGFloat actualPosition = self.firstView.frame.origin.y;
+        NSLog(@"actual:-> %f  Calculated:-> %f",actualPosition,check);
+        [UIView animateWithDuration:.05 animations:^{
+            self.firstView.frame = CGRectMake(self.firstView.frame.origin.x,originalYPosition, self.firstView.bounds.size.width, self.firstView.bounds.size.height);
+        }];
+    }
+
+}
+
+- (void)resetY1PositionWithScrollView:(UIScrollView *)scrollView
+{
+//    CGFloat difference = (intialOffset - scrollView.contentOffset.y );
+////
+////    difference += self.firstView.bounds.size.height;
+//    NSLog(@"%f",difference);
+//    CGRect currentRect = self.firstView.frame;
+//    CGFloat newY = currentRect.origin.y + difference;
+//    newY = MAX(newY, firstMinY);
+//    newY = MIN(newY, firstMaxY);
+//    
+//    self.firstView.frame = CGRectMake(currentRect.origin.x, newY, currentRect.size.width, currentRect.size.height);
+//    
+//    intialOffset = scrollView.contentOffset.y;
+    
+    CGFloat difference = (intialOffset - scrollView.contentOffset.y );
+    
+    CGRect currentRect = self.secondView.frame;
+    CGFloat newY = currentRect.origin.y + difference;
+    newY = MAX(newY, secondMinY);
+    newY = MIN(newY, secondMaxY);
+    
+    CGRect newRect =  CGRectMake(currentRect.origin.x, newY, currentRect.size.width, currentRect.size.height);
+    self.secondView.frame = newRect;
+    
+    if(newRect.origin.y <= originalYPosition )
+    {
+        NSLog(@"Original Position %f",newRect.origin.y);
+        self.firstView.frame = newRect;
+    }
 }
 
 
